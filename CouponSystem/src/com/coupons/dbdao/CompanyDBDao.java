@@ -1,4 +1,4 @@
-package com.coupons.dao.db;
+package com.coupons.dbdao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

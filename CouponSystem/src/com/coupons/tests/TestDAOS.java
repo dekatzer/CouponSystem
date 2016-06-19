@@ -2,7 +2,7 @@ package com.coupons.tests;
 
 import com.coupons.beans.Customer;
 import com.coupons.dao.CustomerDao;
-import com.coupons.dao.db.CustomerDBDao;
+import com.coupons.dbdao.CustomerDBDao;
 import com.coupons.exceptions.DaoException;
 
 public class TestDAOS {
