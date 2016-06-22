@@ -73,6 +73,22 @@ public class CompanyDBDao implements CompanyDao {
 
 	@Override
 	public void updateCompany(Company company) throws DaoException {
+		Connection con = Pool.getConnection();
+		String sql ="UPDATE company "
+				+ "SET password=?,email=? "
+				+ "WHERE comp_name=? ";
+		PreparedStatement stat;
+		try {
+			stat=con.prepareStatement(sql);
+		
+		stat.setString(1, company.getPassword());
+		stat.setString(2, company.getEmail());
+		stat.setString(3, company.getCompName());
+		stat.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
 		// TODO Auto-generated method stub
 
 	}
