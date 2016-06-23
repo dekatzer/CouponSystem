@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import com.coupons.beans.Company;
@@ -94,15 +96,45 @@ public class CompanyDBDao implements CompanyDao {
 	}
 
 	@Override
-	public void removeCustomer(Company company) throws DaoException {
-		// TODO Auto-generated method stub
-
+	public void removeCompany(Company company) throws DaoException {
+		
+		Connection con = Pool.getConnection();
+		String sql ="DELETE FROM company"
+				+ " WHERE comp_name=?";
+		PreparedStatement stat;
+		
+		try {
+		stat=con.prepareStatement(sql);
+		stat.setString(1, company.getCompName());
+		stat.executeQuery();
+        } catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public List<Company> getAllCompanies() throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Company> companyList= new ArrayList<>(); 
+		Connection con = Pool.getConnection();
+		String sql="SELECT comp_id FROM company";
+		PreparedStatement stat;
+		try {
+			stat = con.prepareStatement(sql);
+		
+		ResultSet rs = stat.executeQuery();
+		
+		while (rs.next()){
+			//getCompany- method used for getting 1 company will make a list
+			//using id
+			companyList.add(getCompany(rs.getLong(1)));		//getLong(1)getting long from column number1(id)
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return companyList;
 	}
 
 }
