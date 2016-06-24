@@ -3,6 +3,7 @@ package com.coupons.dbdao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -47,8 +48,25 @@ public class CustomerDBDao implements CustomerDao
 
 	@Override
 	public Customer getCustomer(long id) throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
+		//1.get connection
+		Customer customer=null;
+		Connection con=Pool.getConnection();
+		String sql= "SELECT cust_name,password FROM customer WHERE cust_id=?";
+		PreparedStatement stat=null;
+		try {
+		
+		stat = con.prepareStatement(sql);
+		stat.setLong(1, id);
+		ResultSet rs=stat.executeQuery();
+		rs.next();
+		String cust_name=rs.getString(1);
+		String password=rs.getString(2);
+	    customer = new Customer(cust_name,id,password);
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}return customer;
 	}
 
 	@Override
@@ -69,17 +87,17 @@ public class CustomerDBDao implements CustomerDao
 		return null;
 	}
 	
-	// A function that creates connection
-	// TODO: Use the pool instead later on
-	private Connection getConnection() throws SQLException
-	{
-		String url = "jdbc:mysql://localhost:3306/world";
-				
-		Connection con = 
-				DriverManager.getConnection(url, 
-						"user", "password");
-		return con;
-				
-	}
+//	// A function that creates connection
+//	// TODO: Use the pool instead later on
+//	private Connection getConnection() throws SQLException
+//	{
+//		String url = "jdbc:mysql://localhost:3306/world";
+//				
+//		Connection con = 
+//				DriverManager.getConnection(url, 
+//						"user", "password");
+//		return con;
+//				
+//	}
 	
 }
