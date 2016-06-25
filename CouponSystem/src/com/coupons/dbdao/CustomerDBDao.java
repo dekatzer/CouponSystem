@@ -70,8 +70,25 @@ public class CustomerDBDao implements CustomerDao
 	}
 
 	@Override
-	public void updateCustomer(Customer c) throws DaoException {
-		// TODO Auto-generated method stub
+	public void updateCustomer(Customer customer) throws DaoException {
+		
+		Connection con=Pool.getConnection();
+		String sql ="UPDATE customer "
+				+ "SET password=? "
+				+ "WHERE cust_name=? ";
+		PreparedStatement stat;
+		try {
+			stat=con.prepareStatement(sql);
+		
+		stat.setString(1, customer.getPassword());
+		stat.setString(2, customer.getName());
+		stat.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		
+		
 		
 	}
 
