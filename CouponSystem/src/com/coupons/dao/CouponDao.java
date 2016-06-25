@@ -4,6 +4,7 @@ import com.coupons.beans.Coupon;
 
 public interface CouponDao {
 	public void createCoupon(Coupon coupon);
+	public void removeCoupon(Coupon coupon);
 	
 
 }
