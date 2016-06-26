@@ -4,8 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.coupons.beans.Coupon;
 import com.coupons.beans.Customer;
 import com.coupons.dao.CustomerDao;
 import com.coupons.exceptions.DaoException;
@@ -46,6 +48,42 @@ public class CustomerDBDao implements CustomerDao
 	}
 
 	@Override
+	public void removeCustomer(Customer customer) throws DaoException {
+		Connection con = Pool.getConnection();
+		String sql ="DELETE FROM company"
+				+ " WHERE cust_name=?";
+		PreparedStatement stat;
+		
+		try {
+	    	stat=con.prepareStatement(sql);
+	    	stat.setString(1, customer.getName());
+	    	stat.executeQuery();
+      } catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void updateCustomer(Customer customer) throws DaoException {
+		
+		Connection con=Pool.getConnection();
+		String sql ="UPDATE customer "
+				+ "SET password=? "
+				+ "WHERE cust_name=? ";
+		PreparedStatement stat;
+		try {
+			stat=con.prepareStatement(sql);
+		
+		stat.setString(1, customer.getPassword());
+		stat.setString(2, customer.getName());
+		stat.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		}
+	
+	@Override
 	public Customer getCustomer(long id) throws DaoException {
 		//1.get connection
 		Customer customer=null;
@@ -67,40 +105,53 @@ public class CustomerDBDao implements CustomerDao
 			e.printStackTrace();
 		}return customer;
 	}
-
+	
 	@Override
-	public void updateCustomer(Customer customer) throws DaoException {
-		
-		Connection con=Pool.getConnection();
-		String sql ="UPDATE customer "
-				+ "SET password=? "
-				+ "WHERE cust_name=? ";
+	public List<Customer> getAllCustomers() throws DaoException {
+		List<Customer> customers=new ArrayList<Customer>();
+		Connection con = Pool.getConnection();
+		String sql="SELECT * FROM customer ";
 		PreparedStatement stat;
 		try {
-			stat=con.prepareStatement(sql);
+			stat = con.prepareStatement(sql);
 		
-		stat.setString(1, customer.getPassword());
-		stat.setString(2, customer.getName());
-		stat.executeUpdate();
+		ResultSet rs = stat.executeQuery();
+		while(rs.next()){
+			customers.add(new Customer(rs.getString(2),rs.getLong(1),rs.getString(3)));
+		}
+		} catch (SQLException e) {
+		
+			e.printStackTrace();
+		}
+		return customers;
+	}
+
+	@Override
+	public List<Coupon> getCoupons() throws DaoException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean login(String custName, String password) throws DaoException {
+		boolean check=false;
+		Connection con = Pool.getConnection();//setting up connections from class pool
+		String sql = "SELECT custName,password FROM company WHERE cust_name=? AND password=?";
+		try {
+		PreparedStatement stat=con.prepareStatement(sql);
+		stat.setString(2, custName);
+		stat.setString(3,password);
+		ResultSet rs=stat.executeQuery();
+		
+			check=rs.next();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}		
+		}
 		
-		
-		
+		return check;
 	}
 
-	@Override
-	public void removeCustomer(Customer c) throws DaoException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public List<Customer> getAllCustomers() throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 //	// A function that creates connection
@@ -116,4 +167,4 @@ public class CustomerDBDao implements CustomerDao
 //				
 //	}
 	
-}
+

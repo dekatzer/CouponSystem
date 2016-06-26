@@ -17,7 +17,7 @@ public class TestDaoCompany {
 			e.printStackTrace();
 		}
 		System.out.println(comp1);
-		Company comp2=new Company(2,"comptest2","123456","comptest2@comptest.com");
+		Company comp2=new Company(3,"compte3st2","1234356","compt3est2@comptest.com");
 		try {
 			compDao.createCompany(comp2);
 		} catch (DaoException e) {
