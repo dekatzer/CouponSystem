@@ -18,7 +18,7 @@ import java.sql.*;
 		//PREPAIRING CONNECTION
 		String url = "jdbc:mysql://localhost:3306/couponschema";
 		String username = "root";
-    	String password = "password";
+    	String password = "1234";
     	
     	
     	//GETTING CONNECTED
