@@ -17,6 +17,10 @@ public class Coupon {
 	public Coupon(){
 		
 	}
+	public Coupon(long id, String title, Date start_date, Date end_date, CouponType type, Integer amount,
+			String message, Double price, String image) {
+		
+	}
 	//getters and setters
 	public long getId() {
 		return id;
