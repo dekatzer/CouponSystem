@@ -13,7 +13,7 @@ public interface CustomerDao {
 	public void updateCustomer(Customer c) throws DaoException;
 	public Customer getCustomer(long id) throws DaoException;
 	public List<Customer> getAllCustomers() throws DaoException;
-	public List<Coupon> getCoupons()throws DaoException;
+	public List<Coupon> getCoupons(long id)throws DaoException;
 	public boolean login(String compName,String password)throws DaoException;
 	
 }

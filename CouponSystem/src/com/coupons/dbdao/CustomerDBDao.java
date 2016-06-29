@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.coupons.beans.Coupon;
+import com.coupons.beans.CouponType;
 import com.coupons.beans.Customer;
 import com.coupons.dao.CustomerDao;
 import com.coupons.exceptions.DaoException;
@@ -127,9 +128,37 @@ public class CustomerDBDao implements CustomerDao
 	}
 
 	@Override
-	public List<Coupon> getCoupons() throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Coupon> getCoupons(long id) throws DaoException {
+		List<Coupon> couponsList= new ArrayList<>(); 
+		Connection con = Pool.getConnection();
+		String sql="SELECT * FROM coupon,customer_coupon"
+				+ "WHERE coupon.coupon_id=customer_coupon.coupon_id"
+				+ "AND customer_coupon.cust_id=?";
+		PreparedStatement stat;
+		try {
+			stat = con.prepareStatement(sql);
+			stat.setLong(1, id);
+		    ResultSet rs=stat.executeQuery();
+		while(rs.next()){
+			 Coupon coupon = new Coupon(
+					 rs.getLong("coupon_id"),
+					 rs.getString("title"),
+					 rs.getDate("start_date"),
+					 rs.getDate("end_date"),
+					 CouponType.valueOf(rs.getString("type")),
+					 rs.getInt("amount"),
+					 rs.getString("message"),
+					 rs.getDouble("price"),
+					 rs.getString("image"));
+			 couponsList.add(coupon);
+		}
+	
+		
+		} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		}
+		return couponsList;
 	}
 
 	@Override
