@@ -58,6 +58,14 @@ public class Customer
 	public void setName(String name) {
 		this.name = name;
 	}
+	public Collection<Coupon> getCoupons() {
+		return coupons;
+	}
+
+	public void setCoupons(Collection<Coupon> coupons) {
+		this.coupons = coupons;
+	}
+	
 
 	@Override
 	public String toString() {
@@ -99,7 +107,8 @@ public class Customer
 			return false;
 		return true;
 	}
-	
+
+
 	
 	
 	
