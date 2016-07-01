@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.coupons.beans.Coupon;
-import com.coupons.beans.CouponType;
 import com.coupons.beans.Customer;
 import com.coupons.dao.CustomerDao;
 import com.coupons.exceptions.DaoException;
@@ -140,16 +139,7 @@ public class CustomerDBDao implements CustomerDao
 			stat.setLong(1, id);
 		    ResultSet rs=stat.executeQuery();
 		while(rs.next()){
-			 Coupon coupon = new Coupon(
-					 rs.getLong("coupon_id"),
-					 rs.getString("title"),
-					 rs.getDate("start_date"),
-					 rs.getDate("end_date"),
-					 CouponType.valueOf(rs.getString("type")),
-					 rs.getInt("amount"),
-					 rs.getString("message"),
-					 rs.getDouble("price"),
-					 rs.getString("image"));
+			 Coupon coupon = new Coupon();
 			 couponsList.add(coupon);
 		}
 	

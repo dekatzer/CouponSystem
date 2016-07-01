@@ -9,7 +9,6 @@ import java.util.List;
 
 import com.coupons.beans.Company;
 import com.coupons.beans.Coupon;
-import com.coupons.beans.CouponType;
 import com.coupons.dao.CompanyDao;
 import com.coupons.exceptions.DaoException;
 import com.coupons.pool.Pool;
@@ -136,16 +135,7 @@ public class CompanyDBDao implements CompanyDao {
 			stat.setLong(1, id);
 		    ResultSet rs=stat.executeQuery();
 		while(rs.next()){
-			 Coupon coupon = new Coupon(
-					 rs.getLong("coupon_id"),
-					 rs.getString("title"),
-					 rs.getDate("start_date"),
-					 rs.getDate("end_date"),
-					 CouponType.valueOf(rs.getString("type")),
-					 rs.getInt("amount"),
-					 rs.getString("message"),
-					 rs.getDouble("price"),
-					 rs.getString("image"));
+			 Coupon coupon = new Coupon();
 			 couponsList.add(coupon);
 		}
 	

@@ -1,13 +1,14 @@
 package com.coupons.beans;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.sql.Date;
 
 public class Coupon {
 	//attributes
-	private long id;
+	private long id=0;
 	private String title;
-	private Date startDate;
-	private Date endDate;
+	private LocalDate startDate;
+	private LocalDate endDate;
 	private int amount;
 	private String message;
 	private double price;
@@ -17,33 +18,57 @@ public class Coupon {
 	public Coupon(){
 		
 	}
-	public Coupon(long id, String title, Date start_date, Date end_date, CouponType type, Integer amount,
-			String message, Double price, String image) {
-		
+
+public Coupon(long id,String title,LocalDate start_date,LocalDate end_date,int amount,CouponType type,  String message, double price, String image){
+	this.id=id;
+	this.title=title;
+	this.startDate=start_date;
+	this.endDate=end_date;
+	this.type=type;
+	this.amount=amount;
+	this.message=message;
+	this.price=price;
+	this.image=image;
 	}
+public Coupon(String title, LocalDate startDate, LocalDate endDate, int amount,CouponType type,  String message,
+		double price, String image) {
+	this.title = title;
+	this.startDate = startDate;
+	this.endDate = endDate;
+	this.amount = amount;
+	this.type = type;
+	this.message = message;
+	this.price = price;
+	this.image = image;
+}
+
+
 	//getters and setters
 	public long getId() {
 		return id;
 	}
 	public void setId(long id) {
 		this.id = id;
-	}
+		
+			}
+		
+	
 	public String getTitle() {
 		return title;
 	}
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public Date getStartDate() {
+	public LocalDate getStartDate() {
 		return startDate;
 	}
-	public void setStartDate(Date startDate) {
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
-	public Date getEndDate() {
+	public LocalDate getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(Date endDate) {
+	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
 	public int getAmount() {
