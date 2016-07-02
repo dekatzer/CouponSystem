@@ -28,8 +28,9 @@ public class CompanyDBDao implements CompanyDao {
 		    stat.setString(3, company.getPassword());
 		    stat.setString(4, company.getEmail());		
 		    stat.executeUpdate();
-     } catch (SQLException e) {		
-	       	e.printStackTrace();
+     } catch (SQLException e) {	
+    	 DaoException.showErrorMessage(e);
+	       
          	}
 		}
 	
