@@ -28,10 +28,13 @@ public class CompanyDBDao implements CompanyDao {
 		    stat.setString(3, company.getPassword());
 		    stat.setString(4, company.getEmail());		
 		    stat.executeUpdate();
+		    stat.close();
+			con.close();
      } catch (SQLException e) {	
     	 DaoException.showErrorMessage(e);
 	       
          	}
+		
 		}
 	
 	@Override
@@ -46,8 +49,10 @@ public class CompanyDBDao implements CompanyDao {
 	    	stat=con.prepareStatement(sql);
 	    	stat.setString(1, company.getCompName());
 	    	stat.executeQuery();
+	    	stat.close();
+			con.close();
       } catch (SQLException e) {
-			e.printStackTrace();
+    	  DaoException.showErrorMessage(e);
 		}
 	}
 	
@@ -66,7 +71,7 @@ public class CompanyDBDao implements CompanyDao {
 		stat.setString(3, company.getCompName());
 		stat.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 DaoException.showErrorMessage(e);
 		}		
 		// TODO Auto-generated method stub
 
@@ -90,7 +95,7 @@ public class CompanyDBDao implements CompanyDao {
 		    password=rs.getString(2);
 		    email=rs.getString(3);
 	} catch (SQLException e) {
-			e.printStackTrace();
+		 DaoException.showErrorMessage(e);
 		}
 		// obj company gets its values 
 		   company = new Company(id,compName,password,email);
@@ -118,7 +123,7 @@ public class CompanyDBDao implements CompanyDao {
 			companyList.add(getCompany(rs.getLong(1)));		//getLong(1)getting long from column number1(id)
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			 DaoException.showErrorMessage(e);
 		}
 		
 		return companyList;
@@ -151,9 +156,8 @@ public class CompanyDBDao implements CompanyDao {
 		}
 	
 		
-		} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+		} catch (SQLException e) {	
+	    	 DaoException.showErrorMessage(e);
 		}
 		return couponsList;
 	}
@@ -171,8 +175,7 @@ public class CompanyDBDao implements CompanyDao {
 		
 			check=rs.next();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 DaoException.showErrorMessage(e);
 		}
 		
 		return check;

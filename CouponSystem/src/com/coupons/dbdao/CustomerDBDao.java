@@ -33,8 +33,7 @@ public class CustomerDBDao implements CustomerDao
 			
 			stat.executeUpdate();
 		} catch (SQLException e) {
-			// Translation exception
-			throw new DaoException("Something", e);
+			 DaoException.showErrorMessage(e);
 		}
 //		finally{
 //			try {
@@ -60,7 +59,7 @@ public class CustomerDBDao implements CustomerDao
 	    	stat.setString(1, customer.getName());
 	    	stat.executeQuery();
       } catch (SQLException e) {
-			e.printStackTrace();
+    	  DaoException.showErrorMessage(e);
 		}
 	}
 
@@ -79,8 +78,7 @@ public class CustomerDBDao implements CustomerDao
 		stat.setString(2, customer.getName());
 		stat.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 DaoException.showErrorMessage(e);
 		}		
 		}
 	
@@ -102,8 +100,7 @@ public class CustomerDBDao implements CustomerDao
 	    customer = new Customer(cust_name,id,password);
 		
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 DaoException.showErrorMessage(e);
 		}return customer;
 	}
 	
@@ -122,7 +119,7 @@ public class CustomerDBDao implements CustomerDao
 		}
 		} catch (SQLException e) {
 		
-			e.printStackTrace();
+			 DaoException.showErrorMessage(e);
 		}
 		return customers;
 	}
@@ -155,8 +152,7 @@ public class CustomerDBDao implements CustomerDao
 	
 		
 		} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+			 DaoException.showErrorMessage(e);
 		}
 		return couponsList;
 	}
@@ -174,8 +170,7 @@ public class CustomerDBDao implements CustomerDao
 		
 			check=rs.next();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 DaoException.showErrorMessage(e);
 		}
 		
 		return check;
