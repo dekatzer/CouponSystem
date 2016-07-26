@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 import com.coupons.beans.Coupon;
 import com.coupons.beans.CouponType;
 import com.coupons.dao.CouponDao;
@@ -123,6 +126,109 @@ public class CouponDBDao implements CouponDao{
 		return coupon;
 		
 	}
+	@Override
+	public List<Coupon> getAllCoupon() throws DaoException {
+		List<Coupon> couponsList= new ArrayList<>(); 
+		Connection con = Pool.getConnection();
+		String sql="SELECT * FROM coupon";
+		PreparedStatement stat;
+		try {
+			stat = con.prepareStatement(sql);
+			ResultSet rs=stat.executeQuery();
+		while(rs.next()){
+			 Coupon coupon = new Coupon(
+					 rs.getLong("coupon_id"),
+					 rs.getString("title"),
+					 rs.getDate("start_date"),
+					 rs.getDate("end_date"),
+					 CouponType.valueOf(rs.getString("type")),
+					//rs.getString("type"),
+					 rs.getInt("amount"),
+					 rs.getString("message"),
+					 rs.getDouble("price"),
+					 rs.getString("image"));
+			 couponsList.add(coupon);
+		}
+	
+		
+		} catch (SQLException e) {	
+	    	 DaoException.showErrorMessage(e);
+		}
+		
+		return couponsList ;
+	}
+	@Override
+	public List<Coupon> getCouponByType(CouponType type) throws DaoException {
+		List<Coupon> couponsList= new ArrayList<>(); 
+		Connection con = Pool.getConnection();
+		String sql="SELECT * FROM coupon WHERE coupon.type =?";
+		PreparedStatement stat;
+		try {
+			stat = con.prepareStatement(sql);
+			ResultSet rs=stat.executeQuery();
+			while(rs.next()){
+				 Coupon coupon = new Coupon(
+						 rs.getLong("coupon_id"),
+						 rs.getString("title"),
+						 rs.getDate("start_date"),
+						 rs.getDate("end_date"),
+						 CouponType.valueOf(rs.getString("type")),
+						 //rs.getString("type"),
+						 rs.getInt("amount"),
+						 rs.getString("message"),
+						 rs.getDouble("price"),
+						 rs.getString("image"));
+				 couponsList.add(coupon);
+			}
+		
+			
+			} catch (SQLException e) {	
+		    	 DaoException.showErrorMessage(e);
+			}
+			
+			return couponsList ;
+			
+		
+	}
+	@Override
+	public List<Coupon> getCouponByPrice(long price, long id) throws DaoException {
+		
+		List<Coupon> couponsList= new ArrayList<>(); 
+		Connection con = Pool.getConnection();
+		String sql="SELECT coupon.*,customer_cupon.id FROM coupon  "
+				+ "INNER JOIN customer_cupon ON coupon.id=customer_cupon.coupon_id "
+				+ "WHERE customer_cupon.id=? AND coupon.price =?";
+		PreparedStatement stat;
+		try {
+			stat = con.prepareStatement(sql);
+			stat.setLong(1, id);
+			stat.setLong(2, price);
+			ResultSet rs=stat.executeQuery();
+			while(rs.next()){
+				 Coupon coupon = new Coupon(
+						 rs.getLong("coupon_id"),
+						 rs.getString("title"),
+						 rs.getDate("start_date"),
+						 rs.getDate("end_date"),
+						 CouponType.valueOf(rs.getString("type")),
+						 //rs.getString("type"),
+						 rs.getInt("amount"),
+						 rs.getString("message"),
+						 rs.getDouble("price"),
+						 rs.getString("image"));
+				 couponsList.add(coupon);
+			}
+		
+			
+			} catch (SQLException e) {	
+		    	 DaoException.showErrorMessage(e);
+			}
+			
+			return couponsList ;
+			
+	}
+	
+	
 		
 
 		

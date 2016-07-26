@@ -15,5 +15,6 @@ public interface CustomerDao {
 	public List<Customer> getAllCustomers() throws DaoException;
 	public List<Coupon> getCoupons(long id)throws DaoException;
 	public boolean login(String compName,String password)throws DaoException;
+	void purchaseCoupon(Customer customer,Coupon coupon)throws DaoException;
 	
 }

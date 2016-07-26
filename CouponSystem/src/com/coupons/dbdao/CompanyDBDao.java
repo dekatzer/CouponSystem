@@ -52,8 +52,23 @@ public class CompanyDBDao implements CompanyDao {
 	    	stat.close();
 			con.close();
       } catch (SQLException e) {
-    	  DaoException.showErrorMessage(e);
+    	  e.printStackTrace();
 		}
+	}
+	public void removeCompanyCoupon(Company company){
+		Connection con = Pool.getConnection();
+		String sql ="DELETE * FROM company_coupon"
+				+ " WHERE comp_id=?";
+		PreparedStatement stat;
+		try {
+			stat=con.prepareStatement(sql);
+			stat.setLong(1, company.getId());
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		
 	}
 	
 	@Override

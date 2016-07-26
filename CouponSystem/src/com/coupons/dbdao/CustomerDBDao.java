@@ -175,7 +175,21 @@ public class CustomerDBDao implements CustomerDao
 		
 		return check;
 	}
-
+	@Override
+	public void purchaseCoupon(Customer customer,Coupon coupon)
+	{
+		Connection con = Pool.getConnection();
+		String sql ="INSERT INTO customer_coupon VALUES (?,?) ";
+		try {
+			PreparedStatement stat = con.prepareStatement(sql);
+			stat.setLong(1, customer.getId());
+			stat.setLong(2, coupon.getId());
+			stat.executeUpdate();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+	}
 	}
 	
 //	// A function that creates connection
