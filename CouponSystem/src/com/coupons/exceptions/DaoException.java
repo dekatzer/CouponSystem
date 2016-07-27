@@ -7,6 +7,11 @@ public class DaoException extends SQLException
 {
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public DaoException() {
 		super();
 		// TODO Auto-generated constructor stub

@@ -10,7 +10,7 @@ public class AdminFacade implements CouponClientFacade {
 
 	private CompanyDBDao  compDBDao;
 	private CustomerDBDao custDBDao;
-	private CouponDBDao   coupDBDao;
+	//private CouponDBDao   coupDBDao;
 	
 	public AdminFacade()
 	{

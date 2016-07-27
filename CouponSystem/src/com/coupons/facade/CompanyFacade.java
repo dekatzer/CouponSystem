@@ -6,13 +6,13 @@ import com.coupons.beans.Coupon;
 import com.coupons.beans.CouponType;
 import com.coupons.dbdao.CompanyDBDao;
 import com.coupons.dbdao.CouponDBDao;
-import com.coupons.dbdao.CustomerDBDao;
+//import com.coupons.dbdao.CustomerDBDao;
 import com.coupons.exceptions.DaoException;
 
 public class CompanyFacade implements CouponClientFacade {
 	
 	private CompanyDBDao  compDBDao;
-	private CustomerDBDao custDBDao;
+	//private CustomerDBDao custDBDao;
 	private CouponDBDao   coupDBDao;
 	
 	public CompanyFacade ()
